@@ -59,8 +59,7 @@
 	map.addOverlay(featureoverlay);
 	
 	var drawrect = new ol.interaction.DrawRectangle({
-		features: featureoverlay.getFeatures(),
-		type: 'LineString'
+		features: featureoverlay.getFeatures()
 	});
 	var draw = new ol.interaction.Draw({
 		features: featureoverlay.getFeatures(),
