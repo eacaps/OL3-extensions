@@ -122,6 +122,14 @@ ol.interaction.DrawRectangle.prototype.atFinish_ = function(event) {
           this.minPointsPerRing_;
       potentiallyFinishCoordinates = [this.sketchPolygonCoords_[0][0],
         this.sketchPolygonCoords_[0][this.sketchPolygonCoords_[0].length - 2]];
+		
+		var curlength = geometry.getCoordinates()[0].length
+		if(curlength == 4) {
+			console.log('on click return true');
+			return true;
+		} else {
+			console.log('cl:' + curlength);
+		}
     }
     if (potentiallyDone) {
       var map = event.map;
@@ -201,10 +209,6 @@ ol.interaction.DrawRectangle.prototype.modifyDrawing_ = function(event) {
       coordinates = this.sketchPolygonCoords_[0];
     }
 	console.log("m0:" + coordinates);
-    if (this.atFinish_(event)) {
-      // snap to finish
-      coordinate = this.finishCoordinate_.slice();
-    }
     var sketchPointGeom = this.sketchPoint_.getGeometry();
     goog.asserts.assertInstanceof(sketchPointGeom, ol.geom.Point);
     sketchPointGeom.setCoordinates(coordinate);
@@ -264,9 +268,9 @@ ol.interaction.DrawRectangle.prototype.finishDrawing = function() {
     // When we finish drawing a polygon on the last point,
     // the last coordinate is duplicated as for LineString
     // we force the replacement by the first point
-    this.sketchPolygonCoords_[0].pop();
-    this.sketchPolygonCoords_[0].push(this.sketchPolygonCoords_[0][0]);
-    geometry.setCoordinates(this.sketchPolygonCoords_);
+    //this.sketchPolygonCoords_[0].pop();
+    //this.sketchPolygonCoords_[0].push(this.sketchPolygonCoords_[0][0]);
+    //geometry.setCoordinates(this.sketchPolygonCoords_);
     coordinates = geometry.getCoordinates();
   }
 
@@ -317,7 +321,7 @@ ol.interaction.DrawRectangle.prototype.updateSketchFeatures_ = function() {
     sketchFeatures.push(this.sketchFeature_);
   }
   if (!goog.isNull(this.sketchLine_)) {
-    sketchFeatures.push(this.sketchLine_);
+    //sketchFeatures.push(this.sketchLine_);
   }
   if (!goog.isNull(this.sketchPoint_)) {
     sketchFeatures.push(this.sketchPoint_);
